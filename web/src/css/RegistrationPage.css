@@ -1,0 +1,231 @@
+/* Registration Page Container */
+.registration-page {
+  min-height: calc(100vh - 70px); /* full screen minus navbar */
+  background-color: #000;
+  background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+/* Registration Form Card */
+.registration-form {
+  background-color: #1a1a1a;
+  padding: 40px 30px;
+  border-radius: 12px;
+  border: 2px solid #1faa59;
+  box-shadow: 0 8px 30px rgba(31, 170, 89, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Form Heading */
+.registration-form h1 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #1faa59;
+  font-weight: bold;
+}
+
+/* Form Group */
+.registration-form .form-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+/* Form Labels */
+.registration-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* Form Inputs */
+.registration-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #1faa59;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color: #111;
+  color: #fff;
+}
+
+.registration-form input::placeholder {
+  color: #666;
+  font-size: 13px;
+}
+
+.registration-form input:focus {
+  border-color: #1faa59;
+  box-shadow: 0 0 0 3px rgba(31, 170, 89, 0.3);
+  background-color: #0a0a0a;
+}
+
+/* Submit Button */
+.registration-form button {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 10px;
+}
+
+/* Primary Button (Register) */
+.btn-register {
+  background-color: #1faa59;
+  color: #000;
+  border: 2px solid #1faa59;
+}
+
+.btn-register:hover {
+  background-color: #159147;
+  border-color: #fff;
+  box-shadow: 0 4px 12px rgba(31, 170, 89, 0.4);
+}
+
+.btn-register:active {
+  transform: scale(0.98);
+}
+
+/* Optional: Link to Login */
+.registration-form .login-link {
+  display: block;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #1faa59;
+  text-decoration: none;
+  transition: color 0.3s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.registration-form .login-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Error Messages */
+.error-message {
+  display: block;
+  color: #ff6b6b;
+  font-size: 13px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* Password Strength Indicator */
+.password-strength {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: #111;
+  border: 1px solid #1faa59;
+}
+
+.password-strength.weak {
+  color: #ff6b6b;
+  background-color: rgba(255, 107, 107, 0.1);
+  border-color: #ff6b6b;
+}
+
+.password-strength.medium {
+  color: #ffa500;
+  background-color: rgba(255, 165, 0, 0.1);
+  border-color: #ffa500;
+}
+
+.password-strength.strong {
+  color: #1faa59;
+  background-color: rgba(31, 170, 89, 0.1);
+  border-color: #1faa59;
+}
+
+/* Password Requirements */
+.password-requirements {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #111;
+  border-radius: 6px;
+  border-left: 3px solid #1faa59;
+}
+
+.requirements-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 8px 0;
+}
+
+.password-requirements ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.password-requirements li {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 4px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.password-requirements li:before {
+  content: '✗';
+  position: absolute;
+  left: 0;
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.password-requirements li.met {
+  color: #1faa59;
+  font-weight: 500;
+}
+
+.password-requirements li.met:before {
+  content: '✓';
+  color: #1faa59;
+}
+
+/* Password Match/Mismatch Indicator */
+.password-mismatch {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: rgba(255, 107, 107, 0.1);
+  border: 1px solid #ff6b6b;
+  color: #ff6b6b;
+}
+
+.password-match {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: rgba(31, 170, 89, 0.1);
+  border: 1px solid #1faa59;
+  color: #1faa59;
+}

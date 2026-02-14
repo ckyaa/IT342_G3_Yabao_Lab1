@@ -1,0 +1,63 @@
+.navbar {
+  height: 70px;
+  background-color: #1faa59; /* main green */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+/* Logo Link */
+.logo-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Logo */
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  transition: opacity 0.3s;
+}
+
+.logo-link:hover .logo {
+  opacity: 0.8;
+}
+
+/* Buttons container */
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: white;
+  color: #1faa59;
+  border: none;
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #f0f0f0;
+}
+
+.btn-secondary {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.btn-secondary:hover {
+  background-color: #333;
+}
