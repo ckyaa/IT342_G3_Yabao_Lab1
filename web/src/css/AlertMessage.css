@@ -1,0 +1,111 @@
+.alert-message {
+  margin-bottom: 14px;
+  padding: 14px 56px 14px 14px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.alert-message-popup {
+  position: fixed;
+  top: 88px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1200;
+  width: min(560px, calc(100vw - 32px));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.alert-message-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+
+.alert-message-content {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+
+.alert-message-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.alert-message-text {
+  display: block;
+  font-size: 17px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.alert-message-success {
+  color: #fff;
+  background-color: #146c43;
+}
+
+.alert-message-error {
+  color: #fff;
+  background-color: #b02a37;
+}
+
+.alert-message-warning {
+  color: #fff;
+  background-color: #664d03;
+}
+
+.alert-message-info {
+  color: #fff;
+  background-color: #495057;
+}
+
+.alert-message-success .alert-message-icon {
+  color: #1faa59;
+}
+
+.alert-message-error .alert-message-icon {
+  color: #ff6b6b;
+}
+
+.alert-message-warning .alert-message-icon {
+  color: #ffa500;
+}
+
+.alert-message-info .alert-message-icon {
+  color: #666;
+}
+
+.alert-message .alert-message-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 26px;
+  font-weight: 500;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  min-width: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
