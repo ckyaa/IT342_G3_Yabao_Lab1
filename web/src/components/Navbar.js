@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import '../css/Navbar.css';
 
-function Navbar({ onLoginClick, onNavigateToLoginModal }) {
+function Navbar({ isAuthenticated, onLoginClick, onNavigateToLoginModal, onLogout }) {
   const location = useLocation();
   const isOnRegistrationPage = location.pathname === '/register';
 
@@ -20,10 +20,21 @@ function Navbar({ onLoginClick, onNavigateToLoginModal }) {
       </Link>
 
       <div className="hero-buttons">
-        <button onClick={handleLoginClick} className="btn-primary">Login</button>
-        <Link to="/register">
-          <button className="btn-secondary">Register</button>
-        </Link>
+        {isAuthenticated ? (
+          <>
+            <Link to="/dashboard">
+              <button className="btn-primary">Dashboard</button>
+            </Link>
+            <button onClick={onLogout} className="btn-secondary">Logout</button>
+          </>
+        ) : (
+          <>
+            <button onClick={handleLoginClick} className="btn-primary">Login</button>
+            <Link to="/register">
+              <button className="btn-secondary">Register</button>
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );

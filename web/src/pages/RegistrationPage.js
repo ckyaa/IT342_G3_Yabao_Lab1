@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import '../css/RegistrationPage.css';
 import { registerUser } from '../services/api';
+import AlertMessage from '../components/AlertMessage';
 
 function RegistrationPage({ onNavigateToLoginModal }) {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ function RegistrationPage({ onNavigateToLoginModal }) {
 
   const [errors, setErrors] = useState({});
   const [passwordStrength, setPasswordStrength] = useState('');
+  const [serverMessage, setServerMessage] = useState(null);
 
   const validateEmail = (email) => {
     return email.includes('@') && email.includes('.com');
@@ -37,6 +39,11 @@ function RegistrationPage({ onNavigateToLoginModal }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    if (serverMessage) {
+      setServerMessage(null);
+    }
+
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -49,6 +56,7 @@ function RegistrationPage({ onNavigateToLoginModal }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setServerMessage(null);
     const newErrors = {};
 
     // Validate username
@@ -84,11 +92,28 @@ function RegistrationPage({ onNavigateToLoginModal }) {
           email: formData.email,
           password: formData.password,
         });
-        alert('Registration successful!');
+
+        setErrors({});
+        setServerMessage({
+          type: 'success',
+          text: 'Registration successful! You can now log in.'
+        });
         setFormData({ username: '', email: '', password: '', confirmPassword: '' });
+        setPasswordStrength('');
       } catch (err) {
         const message = err && (err.message || err.error || err.msg) ? (err.message || err.error || err.msg) : 'Registration failed';
-        setErrors({ form: message });
+        if (message.toLowerCase().includes('email')) {
+          setErrors({ email: message });
+        } else if (message.toLowerCase().includes('username')) {
+          setErrors({ username: message });
+        } else {
+          setErrors({ form: message });
+        }
+
+        setServerMessage({
+          type: 'error',
+          text: message
+        });
       }
     }
   };
@@ -97,7 +122,13 @@ function RegistrationPage({ onNavigateToLoginModal }) {
     <div className="registration-page">
       <div className="registration-form">
         <h1>Register</h1>
+        <AlertMessage
+          message={serverMessage}
+          onClose={() => setServerMessage(null)}
+          dismissAfter={serverMessage?.type === 'success' ? 4000 : 0}
+        />
         <form onSubmit={handleSubmit}>
+          {errors.form && <div className="error-message">{errors.form}</div>}
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input 

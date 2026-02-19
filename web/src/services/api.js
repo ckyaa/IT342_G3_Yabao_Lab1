@@ -1,67 +1,66 @@
-import axios from "axios";
-
 const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:8080/api";
+const ACCESS_TOKEN_KEY = "accessToken";
+const USER_EMAIL_KEY = "userEmail";
 
-// Create axios instance
-const apiClient = axios.create({
-  baseURL: API_BASE,
-});
+const parseResponseBody = async (response) => {
+  const rawBody = await response.text();
+  if (!rawBody) return null;
 
-// Token management
-export const setAuthToken = (token) => {
-  if (token) {
-    localStorage.setItem("authToken", token);
-    apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  } else {
-    localStorage.removeItem("authToken");
-    delete apiClient.defaults.headers.common["Authorization"];
-  }
-};
-
-export const getAuthToken = () => {
-  return localStorage.getItem("authToken");
-};
-
-// Initialize token from storage on app load
-const token = getAuthToken();
-if (token) {
-  setAuthToken(token);
-}
-
-// Request interceptor to attach JWT token
-apiClient.interceptors.request.use(
-  (config) => {
-    const token = getAuthToken();
-    if (token && !config.headers.Authorization) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-export const loginUser = async (credentials) => {
   try {
-    const response = await apiClient.post("/auth/login", credentials);
-    const { accessToken } = response.data;
-    if (accessToken) {
-      setAuthToken(accessToken);
-    }
-    return response.data;
-  } catch (error) {
-    throw error.response ? error.response.data : error;
+    return JSON.parse(rawBody);
+  } catch {
+    return { message: rawBody };
   }
 };
 
+export const setAuthSession = (authData) => {
+  if (!authData?.accessToken) return;
+  localStorage.setItem(ACCESS_TOKEN_KEY, authData.accessToken);
+  localStorage.setItem(USER_EMAIL_KEY, authData.email || "");
+};
+
+export const clearAuthSession = () => {
+  localStorage.removeItem(ACCESS_TOKEN_KEY);
+  localStorage.removeItem(USER_EMAIL_KEY);
+};
+
+export const getAccessToken = () => localStorage.getItem(ACCESS_TOKEN_KEY);
+
+export const getAuthEmail = () => localStorage.getItem(USER_EMAIL_KEY);
+
+export const isAuthenticated = () => Boolean(getAccessToken());
+
+// Register user (POST /users)
 export const registerUser = async (data) => {
-  try {
-    const response = await apiClient.post("/users", data);
-    return response.data;
-  } catch (error) {
-    throw error.response ? error.response.data : error;
+  const response = await fetch(`${API_BASE}/users`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  const parsedBody = await parseResponseBody(response);
+
+  if (!response.ok) {
+    throw new Error(parsedBody?.message || "Registration failed");
   }
+
+  return parsedBody;
 };
 
-export const logoutUser = () => {
-  setAuthToken(null);
+// Login user (POST /auth/login)
+export const loginUser = async (credentials) => {
+  const response = await fetch(`${API_BASE}/auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  });
+
+  const parsedBody = await parseResponseBody(response);
+
+  if (!response.ok) {
+    throw new Error(parsedBody?.message || "Login failed");
+  }
+
+  return parsedBody;
 };
+
